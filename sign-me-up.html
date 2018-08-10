@@ -27,87 +27,8 @@
     </form>
     <script>
   
-//         let alertMsg = document.createElement("div");
-        
-        
-//         let userNameCheck = function() {
-//             if (userItemVal.length < 5) {
-//                 userNameMsg();
-//             } else {
-//                 alertMsg.remove();
-//                 alert("Thank you " + userItemVal);
-//             }
-//         }
-
-//         let passwordCheck = function() {
-//             if (passItemVal.length < 6) {
-//                 passwordMsg();
-//         }
-        
-//         let repeatPassCheck = function() {
-//             if (RepeatPassItemVal !== passItemVal) {
-//                 repeatPassMsg();
-//             }
-//         }
-
-//         let counrtyCheck = function() {
-            
-//             if (RepeatPassItemVal !== passItemVal) {
-//                 repeatPassMsg();
-//             }
-//         }
-
-//         function userNameMsg() {
-//             return "Your username is too short, must be at least 5 characters";
-//         }
-
-//         function passwordMsg() {
-//             return "Your password is too short, must be at least 6 characters";
-//         }
-
-//         function repeatPassMsg() {
-//             return "Your username is too short, must be at least 5 characters";
-//         }
-        
-//         function CountryMsg() {
-//             return "You can only sign if your country is Israel or USA";
-//         }
-
-//         function userNameAlert() {
-//             form.appendChild(alertMsg);
-//             alertMsg.form.insertBefore(alertMsg, btn);  
-//         } 
- 
-//  /*
-//         function minLengthErrorMsg(minLength, itemName) {
-//             return itemName + " is too short. should be minimum " + minLength
-//         }
-
-//         function validateLength(itemValue, minLength, itemName) {
-//             if (item.length < minLength) {
-//                 alert(minLengthErrorMsg(minLength, itemName));
-//             }
-//         }
-// */
-//         function submitForm(formItemVal) {
-//             /*
-//             validateLength(userItemVal, 5, "User Name");
-//             validateLength(userPassVal, 8, "Password");
-// */
-//             if (formItemVal.length < 5) {
-//                 userNameAlert();
-//             } else {
-//                 alertMsg.remove();
-//                 alert("Thank you " + formItemVal);
-                      
-//             }
-//         }
-        
         let form = document.getElementsByTagName("form")[0];
         let btn = document.getElementsByTagName("button")[0];
-
-
-
 
         const arrAlerts = [];
 
@@ -127,6 +48,7 @@
             countAlerts(arrAlerts);
         }
 
+
         const validateMinLength = function(formItem, desiredLength) {
             if (String(formItem).length < desiredLength) {
                 return alertLengthMsg(formItem, desiredLength);
@@ -134,7 +56,8 @@
                 return null;
             }
         }
-        
+
+
         const validateCountry = function(formItem) {
             let newFormItem = formItem.toLowerCase();
             if (newFormItem !== "israel" && newFormItem !== "usa" && newFormItem !== "united state" ) {
@@ -143,6 +66,7 @@
                 return null;
             }
         }
+
 
         const validateRepeatPassword = function(formItem1, formItem2) {
             if (formItem2 !== formItem1) {
@@ -158,10 +82,12 @@
             return alertMsg;
         }
 
+
         const alertItemNotIqual = function(formItem) {
             let alertMsg = "The password you added is not iqual to your password: " + formItem ;
             return alertMsg;
         }
+
 
         const alertCountry = function() {
             let alertMsg = "You can only sign if your'e from Israel or USA";
@@ -190,6 +116,7 @@
             }
         }
 
+
         const createGreeting = function(greetingName) {
             let greetElem = document.createElement("div");
             greetElem.innerHTML = "Dear " + greetingName + " , thank you for signing up!";
@@ -198,6 +125,7 @@
             greetElem.after(btn);
         }
 
+
         const addAlertToArr = function(functionVal, arr) {
             if (functionVal !== null) {
                 arr.push(functionVal);
@@ -205,6 +133,7 @@
                 return;
             }
         }
+
 
         const countAlerts = function(arr) {
             if (arr.length > 1) {
@@ -215,6 +144,7 @@
                 return createGreeting(document.getElementsByTagName("input")[0].value);
             }
         }
+
 
         btn.addEventListener("click", validateForm);
     
