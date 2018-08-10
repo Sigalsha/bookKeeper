@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign me up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+</head>
+<body>
+    <form>
+            Username:
+            <input type="text" placeholder="Your Name" pattern=".{5,}" title="Must contain at least 5 characters" required/>
+            <br> Email:
+            <input type="e-mail" placeholder="yourname@email.com"/>
+            <br> Password:
+            <input type="password" pattern=".{6,}" title="Must contain at least 6 characters" required placeholder="add a password"/>
+            <br> Repeat password:
+            <input type="password" pattern=".{6,}" title="Must contain at least 6 characters" required placeholder="confirm your password"/>
+            <br> Phone Number:
+            <input type="tel" pattern=".{10,}" placeholder="123-45-6789123"/>
+            <br> Country:
+            <input type="text">
+            <br>
+            <button type="button">Submit</button>
+    </form>
+    <script>
+  
+//         let alertMsg = document.createElement("div");
+        
+        
+//         let userNameCheck = function() {
+//             if (userItemVal.length < 5) {
+//                 userNameMsg();
+//             } else {
+//                 alertMsg.remove();
+//                 alert("Thank you " + userItemVal);
+//             }
+//         }
+
+//         let passwordCheck = function() {
+//             if (passItemVal.length < 6) {
+//                 passwordMsg();
+//         }
+        
+//         let repeatPassCheck = function() {
+//             if (RepeatPassItemVal !== passItemVal) {
+//                 repeatPassMsg();
+//             }
+//         }
+
+//         let counrtyCheck = function() {
+            
+//             if (RepeatPassItemVal !== passItemVal) {
+//                 repeatPassMsg();
+//             }
+//         }
+
+//         function userNameMsg() {
+//             return "Your username is too short, must be at least 5 characters";
+//         }
+
+//         function passwordMsg() {
+//             return "Your password is too short, must be at least 6 characters";
+//         }
+
+//         function repeatPassMsg() {
+//             return "Your username is too short, must be at least 5 characters";
+//         }
+        
+//         function CountryMsg() {
+//             return "You can only sign if your country is Israel or USA";
+//         }
+
+//         function userNameAlert() {
+//             form.appendChild(alertMsg);
+//             alertMsg.form.insertBefore(alertMsg, btn);  
+//         } 
+ 
+//  /*
+//         function minLengthErrorMsg(minLength, itemName) {
+//             return itemName + " is too short. should be minimum " + minLength
+//         }
+
+//         function validateLength(itemValue, minLength, itemName) {
+//             if (item.length < minLength) {
+//                 alert(minLengthErrorMsg(minLength, itemName));
+//             }
+//         }
+// */
+//         function submitForm(formItemVal) {
+//             /*
+//             validateLength(userItemVal, 5, "User Name");
+//             validateLength(userPassVal, 8, "Password");
+// */
+//             if (formItemVal.length < 5) {
+//                 userNameAlert();
+//             } else {
+//                 alertMsg.remove();
+//                 alert("Thank you " + formItemVal);
+                      
+//             }
+//         }
+        
+        let form = document.getElementsByTagName("form")[0];
+        let btn = document.getElementsByTagName("button")[0];
+
+
+
+
+        const arrAlerts = [];
+
+        const validateForm = function() {
+            let username = document.getElementsByTagName("input")[0].value;
+            let password = document.getElementsByTagName("input")[2].value;
+            let repeatPassword = document.getElementsByTagName("input")[3].value;
+            let phoneNumber = document.getElementsByTagName("input")[4].value;
+            let country = document.getElementsByTagName("input")[5].value;
+
+            addAlertToArr(validateMinLength(username, 5), arrAlerts);
+            addAlertToArr(validateMinLength(password, 6), arrAlerts);
+            addAlertToArr(validateRepeatPassword(password, repeatPassword), arrAlerts);
+            addAlertToArr(validateCountry(country), arrAlerts);
+            addAlertToArr(validateMinLength(phoneNumber, 10), arrAlerts);
+
+            countAlerts(arrAlerts);
+        }
+
+        const validateMinLength = function(formItem, desiredLength) {
+            if (String(formItem).length < desiredLength) {
+                return alertLengthMsg(formItem, desiredLength);
+            } else {
+                return null;
+            }
+        }
+        
+        const validateCountry = function(formItem) {
+            let newFormItem = formItem.toLowerCase();
+            if (newFormItem !== "israel" && newFormItem !== "usa" && newFormItem !== "united state" ) {
+               return alertCountry();
+            } else {
+                return null;
+            }
+        }
+
+        const validateRepeatPassword = function(formItem1, formItem2) {
+            if (formItem2 !== formItem1) {
+                return alertItemNotIqual(formItem1);
+            } else {
+                return null;
+            }
+        }
+        
+
+        const alertLengthMsg = function(newFormItem, desiredLength) {
+            let alertMsg =  newFormItem + " is too short, must be at least " + desiredLength + " characters";
+            return alertMsg;
+        }
+
+        const alertItemNotIqual = function(formItem) {
+            let alertMsg = "The password you added is not iqual to your password: " + formItem ;
+            return alertMsg;
+        }
+
+        const alertCountry = function() {
+            let alertMsg = "You can only sign if your'e from Israel or USA";
+            return alertMsg;
+        }
+
+
+        const createAlertElement = function(arr) {
+            let alertElem = document.createElement("div");
+            alertElem.innerHTML = arr[0];
+            alertElem.style.color = "#FF0000";
+            form.appendChild(alertElem);
+            alertElem.after(btn);
+        }    
+        
+
+        const createListAlerts = function(arr) {
+            let ulElem = document.createElement("ul");
+            form.appendChild(ulElem);
+            ulElem.after(btn);
+            for (var i = 0; i < arr.length; i++) {
+                let alertLiItem = document.createElement("li");
+                alertLiItem.innerHTML = arr[i];
+                alertLiItem.style.color = "#FF0000";
+                ulElem.appendChild(alertLiItem);
+            }
+        }
+
+        const createGreeting = function(greetingName) {
+            let greetElem = document.createElement("div");
+            greetElem.innerHTML = "Dear " + greetingName + " , thank you for signing up!";
+            greetElem.style.color = "#00FF00";
+            form.appendChild(greetElem);
+            greetElem.after(btn);
+        }
+
+        const addAlertToArr = function(functionVal, arr) {
+            if (functionVal !== null) {
+                arr.push(functionVal);
+            } else {
+                return;
+            }
+        }
+
+        const countAlerts = function(arr) {
+            if (arr.length > 1) {
+                return createListAlerts(arr);
+            } else if (arr.length === 1){
+                return createAlertElement(arr);
+            } else {
+                return createGreeting(document.getElementsByTagName("input")[0].value);
+            }
+        }
+
+        btn.addEventListener("click", validateForm);
+    
+    </script>
+</body>
+</html>
+
+
